@@ -1,6 +1,6 @@
 
 template <class T>
-list <T>::list (): node()
+list <T>::list ()  
 {
 	cout << "List Default COntructor" << endl;
 	mHead = NULL;
@@ -15,18 +15,25 @@ list <T>::~list ()
 template <class T>
 list <T>::list (const list& aObj)
 {
-	node.mData = aObj.node.mData;
-	//now it is shallow copy
-	node.mNext = aObj.node.mNext;
+	cout << "Copy Constructor" << endl;
+	Node* temp = aObj.mHead->mPrev;
+	while (temp != NULL)
+	{
+		mHead = temp;
+//		mHead->mData = temp->mData;
+		//now it is shallow copy
+//		mHead->mNext = temp->mNext;
+		temp = temp->mNext;
+	}
 }
 
 template <class T>
 list <T>& list <T>::operator= (list aObj)
 {
 	using std::swap;
-   swap (node.mData, aObj.node.mData);
+   swap (mHead->mData, aObj.mHead->mData);
    // this is also shallow copy
-   swap (node.mNext, aObj.node.mNext);
+   swap (mHead->mNext, aObj.mHead->mNext);
 }
 
 template <class X>
@@ -46,7 +53,7 @@ void list <T>::push_back (T aData)
 		prev = temp;
 		temp = temp->mNext;
 	}
-	temp = new Node(aData, NULL);
+	temp = new Node(aData, NULL, NULL);
 	if (prev)
 		prev->mNext = temp;
 	if(!mHead)

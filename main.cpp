@@ -11,4 +11,7 @@ int main ()
 	test.push_back (5);
 
 	test.print ();
+
+	list <int> copy_test = test;
+	copy_test.print ();
 }

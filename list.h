@@ -17,17 +17,36 @@ class list
 				mNext = NULL;
 				cout << "Structure default Constructor" << endl;
 			}
-			Node (T aData, Node* aNext)
+			Node (T aData, Node* aNext, Node* aPrev)
 			{
 				cout << "Paramaterized Constructor" << endl;
-				mData = aData; mNext = aNext;
+				mData = aData;
+				mNext = aNext;
+				mPrev = aPrev;
 			}
 
-			T 		mData;
-			Node* 	mNext;
-		} node;
+			Node (const Node& aNode)
+			{
+				cout << "Node Copy Constructor" << endl;
+				mData = aNode.Data;
+				if (aNode.mNext != NULL)
+					mNext = new Node (aNode.mNext->mData);
+				else
+					mNext = NULL;
+				if (aNode.mPrev != NULL)
+					mPrev = new Node (aNode.mPrev->mData);
+				else
+					mPrev = NULL;
+			}
 
-		Node* mHead;
+//			private:
+
+				T 		mData;
+				Node* 	mNext;
+				Node*	mPrev;
+		};
+
+		Node* mHead, mTail;
 
 	public:
 		list ();
